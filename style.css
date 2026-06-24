@@ -1,0 +1,29 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+}
+
+.side {
+    background-color: #3c1b43;
+    width: 40vw;
+    height: 100vh;
+    color: #fff;
+    padding: 2rem 1rem;
+}
+
+.title {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    justify-content: center;
+}
+
+#list {
+    font-size: x-large;
+}
