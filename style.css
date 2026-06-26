@@ -58,12 +58,12 @@ main {
 }
 
 #search::placeholder {
-    color: #fff;
+    color: #ffffff;
     font-weight: 500;
 }
 
 .form-container {
-    padding: 40px 25px;
+    padding: 100px 20px;
 }
 
 .form-container h4 {
@@ -82,7 +82,11 @@ form select {
     padding: 12px;
     border-radius: 8px;
     border: none;
-    background-color: rgba(255, 255, 255, 0.8);
+    background-color: rgb(255, 255, 255);
+}
+
+form input::placeholder {
+    color: black;
 }
 
 form button {
