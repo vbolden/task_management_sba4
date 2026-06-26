@@ -13,6 +13,7 @@ main {
     min-height: 100vh;
 }
 
+/* ASIDE */
 .side {
     background-color: #302043;
     width: 260px;
@@ -79,14 +80,20 @@ form {
 
 form input,
 form select {
-    padding: 12px;
+    padding: 8px 12px;
     border-radius: 8px;
-    border: none;
+    border: 5px inset white;
     background-color: rgb(255, 255, 255);
 }
 
 form input::placeholder {
     color: black;
+}
+
+form input:focus,
+form select:focus {
+    border-color: #d15aa8;
+    outline: none;
 }
 
 form button {
@@ -97,7 +104,41 @@ form button {
     cursor: pointer;
 }
 
+form button:hover {
+    background-color: #ff4fc3;
+    box-shadow:
+        0 0 5px #ff4fc3,
+        0 0 15px #ff4fc3,
+        0 0 30px #ff4fc3,
+        0 0 60px #ff4fc3;
+}
+
+/* DASHBOARD */
 .right-container {
     flex: 1;
     background-color: #f1f1f1;
+}
+
+header {
+    height: 100px;
+}
+
+.page-break {
+    height: 60px;
+    background-color: rgba(221, 221, 221, 0.4);
+}
+
+/* CARDS */
+.cards-wrapper {
+    display: flex;
+    gap: 50px;
+    padding: 40px 20px;
+    justify-content: center;
+    align-items: center;
+}
+
+.card {
+    width: 350px;
+    background-color: #d15aa8;
+    height: 700px;
 }
