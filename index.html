@@ -26,29 +26,33 @@
             <div class="form-container">
                 <h4>Add a New Task</h4>
                 <form action="">
-                    <input type="text" placeholder="Task Name">
-                    <input type="date" name="" id="">
-                    <select name="" id="">
+                    <input type="text" id="task-name" placeholder="Task Name">
+                    <input type="date" id="task-date" name="" id="">
+                    <select name="" id="task-status">
                         <option value="todo">To Do</option>
                         <option value="inprogress">In Progress</option>
                         <option value="Complete">Complete</option>
                     </select>
-                    <button type="submit">Add</button>
+                    <button type="submit" id="add-btn">Add</button>
                 </form>
             </div>
         </aside>
         <div class="right-container">
-            <div class="card" id="todo">
-                <ul id="todo-list"></ul>
-            </div>
-            <div class="card" id="inprogress">
-                <ul class="inprogress-list"></ul>
-            </div>
-            <div class="card" id="complete">
-                <ul class="complete-list"></ul>
-            </div>
-            <div class="card" id="overdue">
-                <ul class="overdue-list"></ul>
+            <header></header>
+            <div class="page-break"></div>
+            <div class="cards-wrapper">
+                <div class="card" id="todo">
+                    <ul id="todo-list"></ul>
+                </div>
+                <div class="card" id="inprogress">
+                    <ul class="inprogress-list"></ul>
+                </div>
+                <div class="card" id="complete">
+                    <ul class="complete-list"></ul>
+                </div>
+                <div class="card" id="overdue">
+                    <ul class="overdue-list"></ul>
+                </div>
             </div>
         </div>
     </main>
