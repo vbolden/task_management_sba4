@@ -6,17 +6,19 @@
 
 body {
     height: 100vh;
+    overflow-x: hidden;
 }
 
 main {
     display: flex;
     min-height: 100vh;
+    flex-wrap: wrap;
 }
 
 /* ASIDE */
 .side {
     background-color: #302043;
-    width: 260px;
+    width: clamp(220px, 20vw, 260px);
     min-height: 100vh;
     color: #fff;
     display: flex;
@@ -133,12 +135,13 @@ header {
     display: flex;
     gap: 50px;
     padding: 40px 20px;
+    flex-wrap: wrap;
     justify-content: center;
     align-items: center;
 }
 
 .card {
-    width: 350px;
+    width: clamp(260px, 30vw, 350px);
     background-color: rgba(221, 221, 221, 0.2);
     height: 700px;
     border-radius: 4px;
@@ -210,4 +213,94 @@ ul li {
 
 .dragging {
     opacity: .5;
+}
+
+/* MEDIA QUERIES */
+@media (max-width: 1024px) {
+    main {
+        flex-direction: column;
+    }
+
+    .side {
+        width: 100%;
+        min-height: auto;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+    }
+
+    .title {
+        height: auto;
+        font-size: 1rem;
+        margin-bottom: 2rem;
+    }
+
+    .form-container {
+        padding: 20px;
+        width: 50%;
+    }
+
+    form button:hover {
+        background-color: #d15aa8;
+        box-shadow: none;
+    }
+
+    .cards-wrapper {
+        flex-wrap: wrap;
+        gap: 20px;
+        padding: 20px;
+    }
+
+    .card {
+        width: 45%;
+        height: 500px;
+    }
+
+    .search-container {
+        display: none;
+    }
+}
+
+@media (max-width: 768px) {
+    .side {
+        flex-direction: column;
+        align-items: stretch;
+        text-align: center;
+    }
+
+    .search-container {
+        justify-content: center;
+        padding: 0 15px;
+    }
+
+    .form-container {
+        padding: 20px 15px;
+        width: 100%;
+    }
+
+    .cards-wrapper {
+        flex-direction: column;
+        align-items: center;
+        padding: 15px;
+    }
+
+    .card {
+        width: 100%;
+        height: auto;
+        max-height: 450px;
+    }
+
+    ul {
+        gap: 0.7rem;
+    }
+
+    header {
+        height: 60px;
+    }
+
+    .page-break {
+        height: 40px;
+    }
+
 }
