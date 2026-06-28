@@ -215,6 +215,14 @@ ul li {
     opacity: .5;
 }
 
+[draggable="true"] {
+    cursor: grab;
+}
+
+[draggable="true"]:active {
+    cursor: grabbing;
+}
+
 /* MEDIA QUERIES */
 @media (max-width: 1024px) {
     main {
