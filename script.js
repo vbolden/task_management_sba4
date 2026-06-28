@@ -8,9 +8,16 @@ let completeList = document.getElementById("complete-list");
 let overdueList = document.getElementById("overdue-list");
 let addBtn = document.getElementById("add-btn");
 let tasks = [];
+let draggedTask = null;
 
 // EVENT LISTENERS
 addBtn.addEventListener("click", addTask);
+
+document.addEventListener("click", e => {
+    if (e.target.classList.contains("delete")) {
+        removeTask(e);
+    }
+});
 
 // FUNCTIONS
 function addTask(e) {
@@ -55,6 +62,7 @@ function displayTasks() {
 
     tasks.map(task => {
         const taskItem = document.createElement("li");
+        taskItem.setAttribute("draggable", true);
 
         taskItem.innerHTML = `
         <p>${task.name}</p>
@@ -65,6 +73,12 @@ function displayTasks() {
         </div>
         `;
 
+        let deleteButton = taskItem.querySelector(".delete");
+
+        deleteButton.addEventListener("mousedown", e => {
+            e.stopPropagation();
+        });
+
         if (task.status === "To Do") {
             todoList.appendChild(taskItem);
         } else if (task.status === "In Progress") {
@@ -72,14 +86,52 @@ function displayTasks() {
         } else {
             completeList.appendChild(taskItem);
         }
-    });
 
-    let deleteBtns = document.querySelectorAll(".delete");
+        taskItem.addEventListener("dragstart", (e) => {
+            draggedTask = task.id;
+            e.dataTransfer.setData("text/plain", task.id);
+            taskItem.classList.add("dragging");
+        });
 
-    deleteBtns.forEach(btn => {
-        btn.addEventListener("click", removeTask);
+        taskItem.addEventListener("dragend", () => {
+
+            taskItem.classList.remove("dragging");
+
+        });
     });
 }
+
+[todoList, inProgressList, completeList].forEach(column => {
+    column.addEventListener("dragover", (e) => {
+        e.preventDefault();
+    });
+
+    column.addEventListener("drop", (e) => {
+        e.preventDefault();
+
+        const droppedId = e.dataTransfer.getData("text/plain");
+
+        const targetColumn = e.currentTarget;
+
+        tasks = tasks.map(task => {
+            if (Number(task.id) === Number(droppedId)) {
+
+                if (targetColumn.id === "todo-list") {
+                    task.status = "To Do";
+
+                } else if (targetColumn.id === "inprogress-list") {
+                    task.status = "In Progress";
+
+                } else if (targetColumn.id === "complete-list") {
+                    task.status = "Complete";
+                }
+            }
+            return task;
+        });
+        draggedTask = null;
+        displayTasks();
+    });
+});
 
 function removeTask(e) {
     let id = e.target.dataset.id;

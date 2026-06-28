@@ -193,6 +193,7 @@ ul {
     display: flex;
     flex-direction: column;
     gap: 1rem;
+    min-height: 50px;
 }
 
 ul li {
@@ -204,4 +205,9 @@ ul li {
     padding: 15px 20px;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
     gap: 15px;
+    pointer-events: auto;
+}
+
+.dragging {
+    opacity: .5;
 }
