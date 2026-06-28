@@ -46,9 +46,10 @@ function displayTasks() {
 
         taskItem.innerHTML = `
         <p>${task.name}</p>
+        <span>${task.date}</span>
         <div class="card-bottom">
-            <span>${task.date}</span>
             <span>${task.status}</span>
+            <button>Delete</button>
         </div>
         `;
 
