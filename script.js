@@ -23,6 +23,7 @@ function addTask(e) {
     let status = taskStatus.value;
 
     tasks.push({
+        id: Date.now(),
         name: title.charAt(0).toUpperCase() + title.slice(1),
         date: dueDate,
         status: status
@@ -49,7 +50,7 @@ function displayTasks() {
         <span>${task.date}</span>
         <div class="card-bottom">
             <span>${task.status}</span>
-            <button>Delete</button>
+            <button class="delete" data-id="${task.id}" >Delete</button>
         </div>
         `;
 
@@ -61,4 +62,18 @@ function displayTasks() {
             completeList.appendChild(taskItem);
         }
     });
+
+    let deleteBtns = document.querySelectorAll(".delete");
+
+    deleteBtns.forEach(btn => {
+        btn.addEventListener("click", removeTask);
+    });
+}
+
+function removeTask(e) {
+    let id = e.target.dataset.id;
+
+    tasks = tasks.filter(task => task.id != id);
+
+    displayTasks();
 }
