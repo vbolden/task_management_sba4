@@ -10,6 +10,9 @@ let addBtn = document.getElementById("add-btn");
 let tasks = [];
 let draggedTask = null;
 
+tasks = JSON.parse(localStorage.getItem("tasks")) || [];
+displayTasks();
+
 // EVENT LISTENERS
 addBtn.addEventListener("click", addTask);
 
@@ -51,7 +54,7 @@ function addTask(e) {
     taskDueDate.value = "";
     taskStatus.value = "To Do";
 
-    overdueTasks();
+    saveTasks();
     displayTasks();
     console.log(tasks);
 }
@@ -81,14 +84,14 @@ function displayTasks() {
             e.stopPropagation();
         });
 
-        if (task.status === "To Do") {
+        if (isOverdue(task)) {
+            overdueList.appendChild(taskItem);
+        } else if (task.status === "To Do") {
             todoList.appendChild(taskItem);
         } else if (task.status === "In Progress") {
             inProgressList.appendChild(taskItem);
         } else if (task.status === "Complete") {
             completeList.appendChild(taskItem);
-        } else if (task.status === "Overdue") {
-            overdueList.appendChild(taskItem);
         }
 
         taskItem.addEventListener("dragstart", (e) => {
@@ -133,7 +136,7 @@ function displayTasks() {
             return task;
         });
         draggedTask = null;
-        overdueTasks();
+        saveTasks();
         displayTasks();
     });
 });
@@ -143,22 +146,20 @@ function removeTask(e) {
 
     tasks = tasks.filter(task => task.id != id);
 
-    overdueTasks();
+    saveTasks();
     displayTasks();
 }
 
-function overdueTasks() {
+function isOverdue(task) {
     let today = new Date();
-    today.setHours(0, 0, 0, 0);
+    today.setHours(0,0,0,0);
 
-    tasks = tasks.map(task => {
-        let taskDate = new Date(task.date);
-        taskDate.setHours(0, 0, 0, 0);
+    let taskDate = new Date(task.date);
+    taskDate.setHours(0,0,0,0);
 
-        if (taskDate < today && task.status !== "Complete") {
-            task.status = "Overdue";
-        }
+    return task.status !== "Complete" && taskDate < today;
+}
 
-        return task;
-    });
+function saveTasks() {
+    localStorage.setItem("tasks", JSON.stringify(tasks));
 }
