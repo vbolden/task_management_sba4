@@ -51,6 +51,7 @@ function addTask(e) {
     taskDueDate.value = "";
     taskStatus.value = "To Do";
 
+    overdueTasks();
     displayTasks();
     console.log(tasks);
 }
@@ -59,6 +60,7 @@ function displayTasks() {
     todoList.innerHTML = "";
     inProgressList.innerHTML = "";
     completeList.innerHTML = "";
+    overdueList.innerHTML = "";
 
     tasks.map(task => {
         const taskItem = document.createElement("li");
@@ -83,8 +85,10 @@ function displayTasks() {
             todoList.appendChild(taskItem);
         } else if (task.status === "In Progress") {
             inProgressList.appendChild(taskItem);
-        } else {
+        } else if (task.status === "Complete") {
             completeList.appendChild(taskItem);
+        } else if (task.status === "Overdue") {
+            overdueList.appendChild(taskItem);
         }
 
         taskItem.addEventListener("dragstart", (e) => {
@@ -129,6 +133,7 @@ function displayTasks() {
             return task;
         });
         draggedTask = null;
+        overdueTasks();
         displayTasks();
     });
 });
@@ -138,5 +143,22 @@ function removeTask(e) {
 
     tasks = tasks.filter(task => task.id != id);
 
+    overdueTasks();
     displayTasks();
+}
+
+function overdueTasks() {
+    let today = new Date();
+    today.setHours(0, 0, 0, 0);
+
+    tasks = tasks.map(task => {
+        let taskDate = new Date(task.date);
+        taskDate.setHours(0, 0, 0, 0);
+
+        if (taskDate < today && task.status !== "Complete") {
+            task.status = "Overdue";
+        }
+
+        return task;
+    });
 }
