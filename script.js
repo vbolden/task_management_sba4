@@ -73,7 +73,7 @@ function displayTasks() {
         <p>${task.name}</p>
         <span>${task.date}</span>
         <div class="card-bottom">
-            <span>${task.status}</span>
+            <span>${isOverdue(task) ? "OVERDUE" : task.status}</span>
             <button class="delete" data-id="${task.id}" >Delete</button>
         </div>
         `;
