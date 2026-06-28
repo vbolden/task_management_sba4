@@ -16,11 +16,22 @@ addBtn.addEventListener("click", addTask);
 function addTask(e) {
     e.preventDefault();
 
-    console.log('button clicked!');
+    // console.log('button clicked!');
 
     let title = taskName.value;
     let dueDate = taskDueDate.value;
     let status = taskStatus.value;
+
+    // VALIDATION
+    if (title === "") {
+        alert("Please enter a task name!");
+        return;
+    }
+
+    if (dueDate === "") {
+        alert("Please choose a due date.");
+        return;
+    }
 
     tasks.push({
         id: Date.now(),
